@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Tomáš Buša</title>
+  <meta name="description" content="About Tomáš Buša: background, what he works on, and his technical stack.">
+  <meta property="og:title" content="About — Tomáš Buša">
+  <meta property="og:description" content="About Tomáš Buša: background, what he works on, and his technical stack.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="headshot.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="index.html">Tomáš Buša</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+    <nav id="nav-links" class="nav-links">
+      <a href="about.html" aria-current="page">About</a>
+      <a href="experience.html">Experience</a>
+      <a href="education.html">Education</a>
+      <a href="projects.html">Projects</a>
+      <details class="cv-menu">
+        <summary class="btn btn-small">CV</summary>
+        <div class="cv-menu-list">
+          <a href="cv-uk.pdf">UK version</a>
+          <a href="cv-eu.pdf">EU version</a>
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-head wrap">
+    <h1>About</h1>
+    <p class="lede">Imperial MSc Advanced Computing graduate, interested in systems engineering and forward-deployed positions, looking for a role in London, Amsterdam or Prague.</p>
+  </section>
+
+  <section class="section-tight wrap">
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I finished my MSc in Advanced Computing at Imperial in September 2026. I'm
+          interested in systems engineering and performance work, and that interest got
+          specific during the Networked Systems course, where I was introduced to eBPF and
+          DPDK and wanted to keep going. So I did my master's thesis in that area. AccNet
+          lets an unmodified application skip the Linux network stack: eBPF intercepts its
+          socket system calls and hands the data to a DPDK transport. Most of the work was
+          in the gap between what the application expects from a socket and what a bypass
+          can give it without the application noticing. That's the kind of problem I want
+          to keep working on.
+        </p>
+        <p>
+          Before Imperial I did my BSc in Computer Science at VU Amsterdam (Honours
+          Programme, cum laude, GLOBE Scholarship), with an exchange semester at HKUST.
+          I spent three summers at MicroStep in Bratislava, the first on data analysis and
+          the next two writing software for CNC machine automation.
+        </p>
+        <p>
+          I'm looking for a graduate or junior role in London, Amsterdam or Prague. Two
+          kinds interest me: a networking, kernel, performance or cloud-infrastructure
+          team, or a forward-deployed engineering role. I like working directly with
+          clients, and I like learning new things, which forward-deployed work is full of.
+        </p>
+        <p>
+          Outside work I play football and tennis.
+        </p>
+      </div>
+      <div class="about-side">
+        <img class="about-photo" src="headshot.jpg" alt="Tomáš Buša" width="420" height="500">
+        <dl class="facts">
+          <div><dt>Based in</dt><dd>London</dd></div>
+          <div><dt>Open to</dt><dd>London, Amsterdam, Prague</dd></div>
+          <div><dt>Citizenship</dt><dd>EU (Slovak)</dd></div>
+          <div><dt>UK status</dt><dd>Eligible for Graduate Visa</dd></div>
+          <div><dt>Languages</dt><dd>Slovak, English, Czech</dd></div>
+          <div><dt>Supervisor</dt><dd>Dr Marios Kogias, Imperial</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>Stack</h2>
+    </div>
+    <div class="stack-grid">
+      <div>
+        <h3>Languages</h3>
+        <ul><li>C</li><li>C++</li><li>Python</li><li>Java</li><li>Bash</li></ul>
+      </div>
+      <div>
+        <h3>Kernel and networking</h3>
+        <ul>
+          <li>eBPF: cgroup hooks, ring buffers, the verifier</li>
+          <li>DPDK and kernel-bypass transports</li>
+          <li>Linux kernel modifications and kfuncs</li>
+          <li>Shared-memory IPC</li>
+          <li>Socket programming, TCP/IP internals</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Tooling</h3>
+        <ul>
+          <li>Linux, custom kernel builds, gdb</li>
+          <li>Docker, Kubernetes, Azure</li>
+          <li>git, GitHub Actions, unit testing</li>
+          <li>PostgreSQL, REST APIs</li>
+          <li>angr, static analysis</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-contact">
+      <div>
+        <h2>Contact</h2>
+        <p>If you're hiring for a systems team or a forward-deployed engineering role, or want to talk about kernel-bypass networking, email is the fastest way to reach me.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn" href="mailto:tomas.busa@outlook.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/tom%C3%A1%C5%A1-bu%C5%A1a-69b99b200/">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/YBushi">GitHub</a>
+        <a class="btn btn-ghost" href="cv-uk.pdf">CV (UK)</a>
+        <a class="btn btn-ghost" href="cv-eu.pdf">CV (EU)</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

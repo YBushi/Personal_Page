@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experience — Tomáš Buša</title>
+  <meta name="description" content="Tomáš Buša's research and internship experience.">
+  <meta property="og:title" content="Experience — Tomáš Buša">
+  <meta property="og:description" content="Tomáš Buša's research and internship experience.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="headshot.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="index.html">Tomáš Buša</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+    <nav id="nav-links" class="nav-links">
+      <a href="about.html">About</a>
+      <a href="experience.html" aria-current="page">Experience</a>
+      <a href="education.html">Education</a>
+      <a href="projects.html">Projects</a>
+      <details class="cv-menu">
+        <summary class="btn btn-small">CV</summary>
+        <div class="cv-menu-list">
+          <a href="cv-uk.pdf">UK version</a>
+          <a href="cv-eu.pdf">EU version</a>
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-head wrap">
+    <h1>Experience</h1>
+    <p class="lede">Thesis research at Imperial, and three summers at MicroStep in Bratislava.</p>
+  </section>
+
+  <section class="section-tight wrap">
+    <div class="timeline">
+      <article class="entry">
+        <div class="entry-when">2025 – 2026</div>
+        <div class="entry-body">
+          <h2>MSc thesis research, Imperial College London</h2>
+          <p class="entry-org">AccNet, supervised by Dr Marios Kogias; co-developed with a co-author of Machnet</p>
+          <ul>
+            <li>Extended a custom Linux kernel's system-call path with generic entry and exit eBPF hooks that can rewrite an intercepted system call into a different one, or implement and short-circuit it entirely.</li>
+            <li>Designed and built the interception layer for a transparent network-stack bypass: cgroup eBPF hooks redirect the data of unmodified TCP applications through shared-memory ring buffers to Machnet, a DPDK-based transport.</li>
+            <li>Added two kernel modifications, a writeable ring-buffer mapping and eventfd kfuncs, to get a zero-copy transmit path and kernel-style wake-ups without touching the application.</li>
+            <li>Evaluated against tuned Linux TCP with memcached, lighttpd and an unmodified Go server on CloudLab hardware.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-when">Jun – Aug 2024</div>
+        <div class="entry-body">
+          <h2>Software engineer intern, MicroStep</h2>
+          <p class="entry-org">Bratislava, Slovakia</p>
+          <ul>
+            <li>Built an automation tool that parses electrical schematics of CNC machines and generates YAML, EBI and ENI configuration files for EtherCAT devices, replacing manual creation and cutting setup time by about 80%.</li>
+            <li>Wrote generators for I/O change scripts to automate I/O map updates, reducing manual intervention and error rates when integrating new hardware.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-when">Jun – Aug 2023</div>
+        <div class="entry-body">
+          <h2>Software engineer intern, MicroStep</h2>
+          <p class="entry-org">Bratislava, Slovakia</p>
+          <ul>
+            <li>Rebuilt a socket-based application for real-time communication between the CNC control PC and the MMI PC, reducing reliance on internal COBs and lowering latency by about 30%.</li>
+            <li>Remodelled a regex-based file-parsing library used across the CNC automation tools for configuration and log files.</li>
+            <li>Upgraded a Python C-code generator for I/O mapping and device-driver code by integrating that parsing library, cutting manual edits by about 30%.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-when">Jun – Aug 2022</div>
+        <div class="entry-body">
+          <h2>Data analyst intern, MicroStep</h2>
+          <p class="entry-org">Bratislava, Slovakia</p>
+          <ul>
+            <li>Analysed and visualised financial and operational data in Power BI to evaluate CNC machine production cash flow, supporting purchasing decisions.</li>
+            <li>Worked with a database specialist to analyse and restructure internal database schemas, improving system efficiency by about 15%.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-contact">
+      <div>
+        <h2>Contact</h2>
+        <p>If you're hiring for a systems team or a forward-deployed engineering role, or want to talk about kernel-bypass networking, email is the fastest way to reach me.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn" href="mailto:tomas.busa@outlook.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/tom%C3%A1%C5%A1-bu%C5%A1a-69b99b200/">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/YBushi">GitHub</a>
+        <a class="btn btn-ghost" href="cv-uk.pdf">CV (UK)</a>
+        <a class="btn btn-ghost" href="cv-eu.pdf">CV (EU)</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

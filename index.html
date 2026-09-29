@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tomáš Buša</title>
+  <meta name="description" content="Tomáš Buša, MSc Advanced Computing graduate from Imperial College London, interested in systems engineering, kernel-bypass networking, eBPF and DPDK.">
+  <meta property="og:title" content="Tomáš Buša">
+  <meta property="og:description" content="Tomáš Buša, MSc Advanced Computing graduate from Imperial College London, interested in systems engineering, kernel-bypass networking, eBPF and DPDK.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="headshot.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="index.html">Tomáš Buša</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+    <nav id="nav-links" class="nav-links">
+      <a href="about.html">About</a>
+      <a href="experience.html">Experience</a>
+      <a href="education.html">Education</a>
+      <a href="projects.html">Projects</a>
+      <details class="cv-menu">
+        <summary class="btn btn-small">CV</summary>
+        <div class="cv-menu-list">
+          <a href="cv-uk.pdf">UK version</a>
+          <a href="cv-eu.pdf">EU version</a>
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero wrap">
+    <div class="hero-text">
+      <p class="hero-status"><span class="dot"></span>Open to systems and forward-deployed engineering roles from early 2027</p>
+      <h1>Hi, I'm Tomáš. I'm an Imperial MSc Advanced Computing graduate.</h1>
+      <p class="lede">
+        I'm interested in systems engineering. I got into eBPF and DPDK during a
+        Networked Systems course and ended up doing my thesis on them: AccNet lets unmodified TCP applications skip the Linux network
+        stack. A paper based on that work is under submission. I'm looking for a
+        graduate systems role, or a forward-deployed engineering role where I work with
+        clients directly, in London, Amsterdam or Prague.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="cv-uk.pdf">CV (UK)</a>
+        <a class="btn" href="cv-eu.pdf">CV (EU)</a>
+        <a class="btn btn-ghost" href="projects.html">See the work</a>
+      </div>
+      <ul class="hero-links">
+        <li><a href="https://github.com/YBushi">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/tom%C3%A1%C5%A1-bu%C5%A1a-69b99b200/">LinkedIn</a></li>
+        <li><a href="mailto:tomas.busa@outlook.com">tomas.busa@outlook.com</a></li>
+      </ul>
+    </div>
+    <figure class="hero-photo">
+      <img src="headshot.jpg" alt="Tomáš Buša" width="420" height="500">
+    </figure>
+  </section>
+
+  <section class="glance wrap" aria-label="At a glance">
+    <div class="glance-item">
+      <strong>1.6–2.6×</strong>
+      <span>lower median latency than tuned Linux TCP, from AccNet</span>
+    </div>
+    <div class="glance-item">
+      <strong>2×</strong>
+      <span>throughput for unmodified memcached and lighttpd</span>
+    </div>
+    <div class="glance-item">
+      <strong>8.8 / 10</strong>
+      <span>BSc GPA, cum laude, VU Amsterdam</span>
+    </div>
+    <div class="glance-item">
+      <strong>3 summers</strong>
+      <span>of engineering and data internships at MicroStep</span>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>Featured work</h2>
+      <a class="section-link" href="projects.html">All projects</a>
+    </div>
+    <article class="feature feature-teaser">
+      <div class="feature-intro">
+        <p class="feature-kind">MSc thesis, 2026</p>
+        <h3><a href="projects.html#accnet">AccNet: kernel-bypass networking for unmodified applications</a></h3>
+        <p>
+          Kernel-bypass stacks like DPDK are fast, but they normally need the application
+          rewritten against a new API. AccNet removes that requirement: eBPF hooks on the
+          system-call path intercept socket calls from unmodified TCP applications and
+          redirect their data through shared-memory ring buffers to Machnet, a DPDK-based
+          transport, so an ordinary binary gets the fast path without knowing it.
+        </p>
+        <ul class="chips" aria-label="Technologies">
+          <li>C</li><li>eBPF</li><li>DPDK</li><li>Linux kernel</li><li>Shared-memory IPC</li>
+        </ul>
+      </div>
+      <ul class="results results-compact">
+        <li><strong>1.59–2.59×</strong> lower median latency on microbenchmarks</li>
+        <li><strong>~2×</strong> throughput for unmodified memcached and lighttpd</li>
+        <li><strong>2.34×</strong> throughput for an unmodified Go server</li>
+        <li><strong>0.94–1.17&nbsp;µs</strong> added per message vs native Machnet</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="section wrap home-grid">
+    <div class="home-card">
+      <h2>About</h2>
+      <p>Imperial MSc, VU Amsterdam BSc with an HKUST exchange, three summers at MicroStep. Interested in the layer between <code>send()</code> and the wire.</p>
+      <a class="section-link" href="about.html">Read more</a>
+    </div>
+    <div class="home-card">
+      <h2>Experience</h2>
+      <p>Thesis research at Imperial, co-developed with a Machnet co-author; two software engineering and one data analysis internship at MicroStep, Bratislava.</p>
+      <a class="section-link" href="experience.html">See experience</a>
+    </div>
+    <div class="home-card">
+      <h2>Education</h2>
+      <p>MSc Advanced Computing, Imperial College London. BSc Computer Science, VU Amsterdam, 8.8 / 10 cum laude, with an exchange at HKUST.</p>
+      <a class="section-link" href="education.html">See education</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-contact">
+      <div>
+        <h2>Contact</h2>
+        <p>If you're hiring for a systems team or a forward-deployed engineering role, or want to talk about kernel-bypass networking, email is the fastest way to reach me.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn" href="mailto:tomas.busa@outlook.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/tom%C3%A1%C5%A1-bu%C5%A1a-69b99b200/">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/YBushi">GitHub</a>
+        <a class="btn btn-ghost" href="cv-uk.pdf">CV (UK)</a>
+        <a class="btn btn-ghost" href="cv-eu.pdf">CV (EU)</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

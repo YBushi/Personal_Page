@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Tomáš Buša</title>
+  <meta name="description" content="Projects by Tomáš Buša: AccNet kernel-bypass networking, a Spectre gadget detector, an EtherCAT configuration generator.">
+  <meta property="og:title" content="Projects — Tomáš Buša">
+  <meta property="og:description" content="Projects by Tomáš Buša: AccNet kernel-bypass networking, a Spectre gadget detector, an EtherCAT configuration generator.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="headshot.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="index.html">Tomáš Buša</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+    <nav id="nav-links" class="nav-links">
+      <a href="about.html">About</a>
+      <a href="experience.html">Experience</a>
+      <a href="education.html">Education</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <details class="cv-menu">
+        <summary class="btn btn-small">CV</summary>
+        <div class="cv-menu-list">
+          <a href="cv-uk.pdf">UK version</a>
+          <a href="cv-eu.pdf">EU version</a>
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-head wrap">
+    <h1>Projects</h1>
+    <p class="lede">Thesis work, a security tool, and industrial automation.</p>
+  </section>
+
+  <section class="section-tight wrap">
+    <article class="feature" id="accnet">
+      <div class="feature-intro">
+        <p class="feature-kind">MSc thesis, 2026</p>
+        <h2>AccNet: kernel-bypass networking for unmodified applications</h2>
+        <p>
+          Kernel-bypass stacks like DPDK are fast, but they normally need the application
+          rewritten against a new API. AccNet removes that requirement. A custom Linux
+          kernel exposes generic entry and exit eBPF hooks on the system-call path; the
+          hooks can rewrite an intercepted call into a different one, or implement and
+          short-circuit it entirely. AccNet uses them to catch the socket calls of an
+          unmodified TCP application and redirect its data through shared-memory ring
+          buffers to Machnet, a DPDK-based transport, so an ordinary binary gets the
+          fast path without knowing it.
+        </p>
+        <p>
+          Transmit is zero-copy: the ring buffer the eBPF hook writes into is registered
+          with DPDK, so the NIC reads the payload from where the hook left it. Making that
+          work needed two kernel modifications, a writeable ring-buffer mapping and eventfd
+          kfuncs, so the bypass could wake the application the way the kernel would, which
+          also keeps <code>epoll</code>, <code>poll</code> and <code>select</code> working
+          untouched. Built with a co-author of Machnet.
+        </p>
+      </div>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 760 330" role="img" aria-labelledby="diag-title diag-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="diag-title">AccNet data path</title>
+          <desc id="diag-desc">An unmodified application issues socket system calls. An eBPF syscall hook at the kernel boundary redirects them into per-connection ring buffers, which Machnet in user space drains and transmits through DPDK straight to the NIC. The ordinary Linux TCP/IP path is shown dimmed as the slow path.</desc>
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/>
+            </marker>
+            <marker id="arr-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="var(--slow)"/>
+            </marker>
+          </defs>
+
+          <!-- region labels -->
+          <text x="16" y="28" class="d-region">user space</text>
+          <text x="16" y="210" class="d-region">kernel</text>
+
+          <!-- boundary -->
+          <line x1="0" y1="180" x2="760" y2="180" class="d-boundary"/>
+          <text x="318" y="172" text-anchor="middle" class="d-region">kernel boundary</text>
+
+          <!-- user space: application -->
+          <rect x="40" y="52" width="200" height="88" rx="8" class="d-box"/>
+          <text x="140" y="86" text-anchor="middle" class="d-label">Unmodified application</text>
+          <text x="140" y="110" text-anchor="middle" class="d-sub">in a container</text>
+
+          <!-- user space: Machnet -->
+          <rect x="420" y="52" width="180" height="88" rx="8" class="d-box d-box-accent"/>
+          <text x="510" y="86" text-anchor="middle" class="d-label">Machnet</text>
+          <text x="510" y="110" text-anchor="middle" class="d-sub">DPDK transport</text>
+
+          <!-- NIC -->
+          <rect x="650" y="52" width="90" height="88" rx="8" class="d-box d-box-accent"/>
+          <text x="695" y="100" text-anchor="middle" class="d-label">NIC</text>
+
+          <!-- kernel: syscall hook -->
+          <rect x="40" y="226" width="200" height="72" rx="8" class="d-box d-box-accent"/>
+          <text x="140" y="256" text-anchor="middle" class="d-label">eBPF syscall hook</text>
+          <text x="140" y="278" text-anchor="middle" class="d-sub">intercepts the syscall</text>
+
+          <!-- kernel: ring buffers -->
+          <rect x="300" y="226" width="200" height="72" rx="8" class="d-box d-box-accent"/>
+          <text x="400" y="256" text-anchor="middle" class="d-label">Shared-memory ring buffers</text>
+          <text x="400" y="278" text-anchor="middle" class="d-sub">registered with DPDK</text>
+
+          <!-- kernel: TCP stack (slow path) -->
+          <rect x="560" y="226" width="180" height="72" rx="8" class="d-box d-box-dim"/>
+          <text x="650" y="256" text-anchor="middle" class="d-label d-dim">Linux TCP/IP stack</text>
+          <text x="650" y="278" text-anchor="middle" class="d-sub d-dim">slow path, unchanged</text>
+
+          <!-- flows: app -> syscall -> hook -->
+          <line x1="140" y1="140" x2="140" y2="222" class="d-flow" marker-end="url(#arr)"/>
+          <text x="152" y="166" class="d-code">send() / recv()</text>
+
+          <!-- hook -> ringbuf -->
+          <line x1="240" y1="262" x2="296" y2="262" class="d-flow" marker-end="url(#arr)"/>
+
+          <!-- ringbuf -> Machnet (crosses boundary, zero-copy) -->
+          <path d="M400 226 L400 96 L416 96" fill="none" class="d-flow" marker-end="url(#arr)"/>
+          <text x="410" y="166" class="d-code">zero-copy</text>
+
+          <!-- Machnet -> NIC -->
+          <line x1="600" y1="96" x2="646" y2="96" class="d-flow" marker-end="url(#arr)"/>
+
+          <!-- slow path: hook -> TCP stack -> NIC (dimmed) -->
+          <path d="M240 288 L520 288 L520 316 L650 316 L650 302" fill="none" class="d-flow d-flow-dim" marker-end="url(#arr-dim)"/>
+          <path d="M695 226 L695 144" fill="none" class="d-flow d-flow-dim" marker-end="url(#arr-dim)"/>
+        </svg>
+        <figcaption>The fast path (amber) leaves the kernel stack untouched; sockets the daemon doesn't claim fall through to ordinary TCP.</figcaption>
+      </figure>
+
+      <div class="feature-results">
+        <h3>Measured against tuned Linux TCP</h3>
+        <ul class="results">
+          <li><strong>1.59–2.59×</strong> lower median latency on microbenchmarks</li>
+          <li><strong>~2×</strong> throughput for unmodified memcached and lighttpd</li>
+          <li><strong>2.34×</strong> throughput for an unmodified Go server, which libc-level interception can't reach</li>
+          <li><strong>0.94–1.17&nbsp;µs</strong> added per message compared with native Machnet</li>
+        </ul>
+        <ul class="chips" aria-label="Technologies">
+          <li>C</li><li>C++</li><li>eBPF</li><li>DPDK</li><li>Linux kernel</li><li>Shared-memory IPC</li><li>Machnet</li>
+        </ul>
+        <p class="feature-note">
+          A paper based on this work is under submission, so the source stays private
+          for now. Happy to walk through the design and the thesis in conversation.
+        </p>
+      </div>
+    </article>
+
+    <div class="cards">
+      <article class="card" id="spectre">
+        <p class="card-kind">Security tooling</p>
+        <h2>Spectre-PHT gadget detector</h2>
+        <p>
+          A binary-level Spectre-PHT detector that extends the angr symbolic-execution engine
+          to model speculative execution, without needing relational analysis. 100% precision
+          and recall on the standard litmus gadgets. Open source.
+        </p>
+        <ul class="chips"><li>Python</li><li>angr</li><li>Symbolic execution</li></ul>
+        <a class="card-link" href="https://github.com/YBushi/angr-speculative-pht">github.com/YBushi/angr-speculative-pht</a>
+      </article>
+
+      <article class="card">
+        <p class="card-kind">Industrial automation, MicroStep</p>
+        <h2>EtherCAT configuration generator</h2>
+        <p>
+          Parses the electrical schematics of a CNC machine and generates the YAML, EBI and
+          ENI configuration files its EtherCAT devices need, plus the I/O change scripts for
+          updating I/O maps. Replaced a manual process and cut setup time by about 80%.
+        </p>
+        <ul class="chips"><li>Python</li><li>EtherCAT</li><li>Code generation</li></ul>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-contact">
+      <div>
+        <h2>Contact</h2>
+        <p>If you're hiring for a systems team or a forward-deployed engineering role, or want to talk about kernel-bypass networking, email is the fastest way to reach me.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn" href="mailto:tomas.busa@outlook.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/tom%C3%A1%C5%A1-bu%C5%A1a-69b99b200/">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/YBushi">GitHub</a>
+        <a class="btn btn-ghost" href="cv-uk.pdf">CV (UK)</a>
+        <a class="btn btn-ghost" href="cv-eu.pdf">CV (EU)</a>
+      </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
